@@ -27,22 +27,17 @@ public class Cipher {
         System.out.println("Please input your plaintext here");
         plainText = scan.nextLine();
 
-        //This converts the first letter into ascii, maybe using a while loop will convert the whole text?
-        /*
-        char character = plainText.charAt(0);
-        int ascii = (int) character;
+       //Got it.
+        int counter = 0;
+        for(int i=0; i <plainText.length(); i++) {
+            char character = plainText.charAt(i);
+            int ascii = (int) character;
 
-        System.out.println(ascii);
+            System.out.print(ascii +" ");
+            counter++;
+        }
     }
 
-    // This worked - sort of.
-    */
-        //byte[] b = plainText.getBytes(StandardCharsets.US_ASCII);
-        //cannot pass string as byte.
-       // System.out.println((byte)plainText);
-
-        System.out.println((char)b);
-    }
 
 
     private String Decrypt(String encryptedText){
