@@ -1,67 +1,59 @@
-/*
-*THINGS THAT STILL NEED TO BE DONE:
-* - Saving the string of ascii into an array so it can be manipulated by the final value of ascii.
-* - Shift array by digits of the final value of ascii.
-* - Reverse process for decryption.
-* - Migrate encryption to encryption method.
-* - Migrate decryption to decryption method.
-* - Add interface to choose whether to encrypt or decrypt plaintext/cyphertext.
- */
-
-package cipher;
-
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 /**
- *
- * @author Patrick
+ * Created by jack on 29/07/15.
  */
 public class Cipher {
 
-    /**
-     * @param args the command line arguments
-     */
+    public static void main (String args[]){
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the Plaintext: ");
+        String plainText = scanner.nextLine();
+
+        System.out.println("The ciphertext is: " + encrypt(plainText));
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        System.out.print("Enter the Ciphertext: ");
+        String cipherText = scanner.nextLine();
+
+        System.out.println("The plaintext is: " + decrypt(cipherText));
 
 
-    public static void main(String[] args) {
+    }
 
-        String plainText = "";
-        Scanner scan = new Scanner(System.in);
 
-        System.out.println("Please input your plaintext here");//Welcome text reading in plaintext.
-        plainText = scan.nextLine();
+    private static String encrypt (String plainText){
+        StringBuilder cipherText = new StringBuilder();
 
-        //Logic
-        int counter = 0; //Counter is included for decryption as everything done here needs to be reversed.
-        int sum = 0; // Sum represents the total of ascii values through addition.
-        for (int i = 0; i < plainText.length(); i++) { //Basic for-loop that iterates through the length of the plaintext.
-            char character = plainText.charAt(i); //i representing the ith letter of the plaintext.
-            int ascii = (int) character; //parsing char to int.
-            System.out.print(ascii + " "); //Prints spaced ascii characters.
-            counter++; //Again this is just for decryption representing every character of the plaintext.
-            sum += ascii; //Adds ascii value to the total sum.
+        for ( char c : plainText.toCharArray() ) {
+            int val = c;
+
+            char shiftedC = (char)(c + val);
+            cipherText.append(shiftedC);
+
         }
-        System.out.println(""); //Simply separates the displayed array of ascii values to the total.
-        System.out.println("Total: " + sum); //Prints the sum of all ascii values.
 
-
-
-/*
-
-    private String Decrypt(String encryptedText){
-        String decryptedText = "";
-        
-        return decryptedText;
+        return cipherText.toString();
     }
-    
-    private String Encrypt (String plainText){
-        String cipherText = "";
 
 
-        return cipherText;
+    private static String decrypt (String cipherText) {
+        StringBuilder plainText = new StringBuilder();
+
+        for ( char c: cipherText.toCharArray() ) {
+            int val = c/2;
+
+            char decryptedC = (char)val;
+
+            plainText.append(decryptedC);
+        }
+
+
+        return plainText.toString();
     }
-    */
-    } //Main
 }
