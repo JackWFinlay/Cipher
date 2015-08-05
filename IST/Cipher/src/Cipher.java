@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /**
- * Created by jack on 29/07/15.
+ * Created by jack finlay and patrick pickworth on 29/07/15.
  */
 public class Cipher {
 
@@ -12,29 +12,28 @@ public class Cipher {
         System.out.print("Enter the Plaintext: ");
         String plainText = scanner.nextLine();
 
-        System.out.println("The ciphertext is: " + encrypt(plainText));
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
+        System.out.print("Enter the key: ");
+        String key = scanner.nextLine();
+        
+        System.out.println("The ciphertext is: " + encrypt(plainText, key));
         System.out.print("Enter the Ciphertext: ");
-        String cipherText = scanner.nextLine();
+        String cipherText = scanner.next();
 
-        System.out.println("The plaintext is: " + decrypt(cipherText));
+        System.out.println("The plaintext is: " + decrypt(encrypt(plainText, key),key));
 
 
     }
 
 
-    private static String encrypt (String plainText){
+    private static String encrypt (String plainText, String key){
         StringBuilder cipherText = new StringBuilder();
-
-        for ( char c : plainText.toCharArray() ) {
-            int val = c;
-
-            char shiftedC = (char)(c + val);
-            cipherText.append(shiftedC);
+        
+        for ( int i = 0; i<plainText.length();i++) {
+            int keyI = i % key.length() ;
+            
+            int xor = (int)(plainText.charAt(i) ^ (int)key.charAt(keyI));
+            
+            cipherText.append((char)(xor+32));
 
         }
 
@@ -42,15 +41,15 @@ public class Cipher {
     }
 
 
-    private static String decrypt (String cipherText) {
+    private static String decrypt (String cipherText, String key) {
         StringBuilder plainText = new StringBuilder();
 
-        for ( char c: cipherText.toCharArray() ) {
-            int val = c/2;
-
-            char decryptedC = (char)val;
-
-            plainText.append(decryptedC);
+       for ( int i = 0; i<cipherText.length();i++  ) {
+            int keyI = i % key.length() ;
+            
+            int xor = (int)(((int)cipherText.charAt(i)-32) ^ (int)key.charAt(keyI));
+            
+            plainText.append((char)(xor));
         }
 
 
