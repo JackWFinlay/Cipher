@@ -14,12 +14,15 @@ public class Cipher {
 
         System.out.print("Enter the key: ");
         String key = scanner.nextLine();
-        
+
         System.out.println("The ciphertext is: " + encrypt(plainText, key));
         System.out.print("Enter the Ciphertext: ");
-        String cipherText = scanner.next();
+        String cipherText = scanner.nextLine();
 
-        System.out.println("The plaintext is: " + decrypt(encrypt(plainText, key),key));
+        System.out.print("Enter the key: ");
+        key = scanner.nextLine();
+
+        System.out.println("The plaintext is: " + decrypt(cipherText,key));
 
 
     }
@@ -27,12 +30,12 @@ public class Cipher {
 
     private static String encrypt (String plainText, String key){
         StringBuilder cipherText = new StringBuilder();
-        
+
         for ( int i = 0; i<plainText.length();i++) {
             int keyI = i % key.length() ;
-            
+
             int xor = (int)(plainText.charAt(i) ^ (int)key.charAt(keyI));
-            
+
             cipherText.append((char)(xor+32));
 
         }
@@ -44,11 +47,11 @@ public class Cipher {
     private static String decrypt (String cipherText, String key) {
         StringBuilder plainText = new StringBuilder();
 
-       for ( int i = 0; i<cipherText.length();i++  ) {
+        for ( int i = 0; i<cipherText.length();i++  ) {
             int keyI = i % key.length() ;
-            
+
             int xor = (int)(((int)cipherText.charAt(i)-32) ^ (int)key.charAt(keyI));
-            
+
             plainText.append((char)(xor));
         }
 
